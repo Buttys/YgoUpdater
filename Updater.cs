@@ -120,7 +120,7 @@ namespace YgoUpdater
             {
                 if (attempt == 3)
                 {
-                    if (MessageBox.Show("Error trying to extract update, do you want to retry?", "Error Installing", MessageBoxButtons.YesNo) == DialogResult.OK)
+                    if (MessageBox.Show("Error trying to extract update, do you want to retry?", "Error Installing", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
                         InstallUpdate(0);
                         return;
