@@ -82,7 +82,7 @@ namespace YgoUpdater
             {
                 Program.Frm.SetText("Downloading update " + (i + 1) + " / " + m_downloads.Count + "...");
                 DownloadUpdate(m_downloads[i]);
-                InstallUpdate();
+                InstallUpdate(0);
             }
         }
 
@@ -109,9 +109,32 @@ namespace YgoUpdater
             Program.Frm.SetProgress(100);
         }
 
-        private void InstallUpdate()
+        private void InstallUpdate(int attempt)
         {
-            ZipFile zipfile = new ZipFile(File.OpenRead(Path.Combine(Application.StartupPath, "update.zip")));
+            ZipFile zipfile = null; 
+            try
+            {
+                zipfile = new ZipFile(File.OpenRead(Path.Combine(Application.StartupPath, "update.zip")));
+            }
+            catch
+            {
+                if (attempt == 3)
+                {
+                    if (MessageBox.Show("Error trying to extract update, do you want to retry?", "Error Installing", MessageBoxButtons.YesNo) == DialogResult.OK)
+                    {
+                        InstallUpdate(0);
+                        return;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+
+                Thread.Sleep(500);
+                InstallUpdate(attempt + 1);
+                return;
+            }
             
             for (int i = 0; i < zipfile.Count; i++)
             {

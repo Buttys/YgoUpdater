@@ -48,7 +48,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.Name = "MainFrm";
-            this.Text = "TDOANE - Updater";
+            this.Text = "YGOPro - Updater";
             this.Load += new System.EventHandler(this.MainFrmLoad);
             this.ResumeLayout(false);
             this.PerformLayout();
