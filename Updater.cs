@@ -61,7 +61,7 @@ namespace YgoUpdater
                     return;
 
                 dots += ".";
-                Program.Frm.SetText("Waiting for TDOANE" + dots);
+                Program.Frm.SetText("Waiting for DevPro" + dots);
                 Thread.Sleep(1000);
             }
 
