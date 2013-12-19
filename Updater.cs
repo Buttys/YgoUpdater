@@ -15,6 +15,7 @@ namespace YgoUpdater
     {
         private IList<string> m_downloads;
         private string m_processName;
+        private string m_location;
 
         private WebClient m_client;
         private bool m_downloaded;
@@ -23,7 +24,8 @@ namespace YgoUpdater
         public Updater(string updates, string processName)
         {
             m_downloads = new List<string>(updates.Split(','));
-            m_processName = processName;
+            m_processName = Path.GetFileNameWithoutExtension(processName);
+            m_location = Path.GetDirectoryName(processName) + "\\";
         }
 
         public void Start()
@@ -148,7 +150,7 @@ namespace YgoUpdater
                 Program.Frm.SetText("Installing " + entry.Name);
                 Program.Frm.SetProgress(percentInt);
 
-                string filename = Path.Combine(Application.StartupPath, entry.Name);
+                string filename = Path.Combine(m_location, entry.Name);
                 string directory = Path.GetDirectoryName(filename);
                 if (directory != null && !Directory.Exists(directory))
                     Directory.CreateDirectory(directory);
@@ -165,7 +167,7 @@ namespace YgoUpdater
 
         private void StartTdoane()
         {
-            string location = Path.Combine(Application.StartupPath, m_processName + ".exe");
+            string location = Path.Combine(m_location, m_processName + ".exe");
             Process.Start(location);
         }
     }
