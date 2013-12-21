@@ -16,13 +16,23 @@ namespace YgoUpdater
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            if (args.Length != 2)
+            if (args.Length < 2)
             {
                 MessageBox.Show("This updater cannot be manually started.", "YGOPro - Update", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
-            Update = new Updater(args[0], args[1]);
+            string dir = string.Empty;
+
+            for (int i = 1; i < args.Length; i++)
+            {
+                if (string.IsNullOrEmpty(dir))
+                    dir += args[i];
+                else
+                    dir += " " + args[i];
+            }
+
+            Update = new Updater(args[0], dir);
 
             Application.Run(Frm = new MainFrm());
         }
