@@ -38,9 +38,9 @@ namespace YgoUpdater
         {
             try
             {
-                CloseTdoane();
+                CloseDevPro();
                 DownloadUpdates();
-                StartTdoane();
+                StartDevPro();
             }
             catch (Exception)
             {
@@ -51,7 +51,7 @@ namespace YgoUpdater
             Program.Frm.Exit();
         }
 
-        private void CloseTdoane()
+        private void CloseDevPro()
         {
             Process[] processes;
 
@@ -150,7 +150,7 @@ namespace YgoUpdater
                 Program.Frm.SetText("Installing " + entry.Name);
                 Program.Frm.SetProgress(percentInt);
 
-                string filename = Path.Combine(m_location, entry.Name);
+                string filename = Path.Combine(m_location, entry.Name == "DevPro.exe" ? m_processName + ".exe" : entry.Name);
                 string directory = Path.GetDirectoryName(filename);
                 if (directory != null && !Directory.Exists(directory))
                     Directory.CreateDirectory(directory);
@@ -165,7 +165,7 @@ namespace YgoUpdater
             File.Delete(Path.Combine(Application.StartupPath, "update.zip"));
         }
 
-        private void StartTdoane()
+        private void StartDevPro()
         {
             string location = Path.Combine(m_location, m_processName + ".exe");
             Process.Start(location);
